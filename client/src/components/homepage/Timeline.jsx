@@ -1,5 +1,6 @@
 import {  useState } from "react";
 
+import CreateOrder from "./CreateOrder";
 import OrderCard from "./OrderCard";
 import Modal from "../global/Modal";
 import Icon from "@mdi/react";
@@ -17,6 +18,10 @@ const Timeline = ()=>{
     )
   })
 
+  const closeCreateModal = ()=>{
+    setShowCreateModal(false)
+  }
+
   return(
     <div className="w-1/2 text-[#afc0d8] p-5">
       <button className="w-1/2 flex flex-col items-center border rounded-md py-2 bg-[#1e293b] hover:scale-[101%]"  onClick={()=> setShowCreateModal(true)}>
@@ -27,10 +32,10 @@ const Timeline = ()=>{
       </div>
       <Modal
         showModal={showCreateModal}
-        closeModal={()=> setShowCreateModal(false)}
+        closeModal={closeCreateModal}
         title="Create order"
         >
-        hehe
+          <CreateOrder onCloseModal={closeCreateModal} />
       </Modal>
     </div>
   )

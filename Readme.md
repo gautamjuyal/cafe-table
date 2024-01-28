@@ -29,6 +29,7 @@ Cafe table is one application you need to manage your cafes/restaurants. Aimed a
 
   ```bash
   cd client
+  npm install
   npm run dev
   ```
 
@@ -36,6 +37,7 @@ Cafe table is one application you need to manage your cafes/restaurants. Aimed a
 
   ```bash
   cd server
+  npm install
   npm run dev
   ```
 

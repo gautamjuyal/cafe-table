@@ -8,7 +8,7 @@ const Home = ()=>{
     <div className="flex items-center flex-col bg-bg1 min-h-screen">
       {/* my account with current menu below it */}
       <Header />
-      <div className="w-[100%] flex justify-center gap-3">
+      <div className="w-[100%] flex justify-center gap-3 py-3">
         <UserCard />
         <Timeline />
         <CurrentMenu />
