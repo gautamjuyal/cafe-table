@@ -1,21 +1,22 @@
 import { useState } from "react"
-
+import { useDispatch, useSelector } from "react-redux"
 import Icon from '@mdi/react';
-import { mdiDelete, mdiMinus } from '@mdi/js';
+import { mdiDelete, mdiMinus, mdiPlus, mdiArrowLeft } from '@mdi/js';
 
+import { createOrder } from '../../store/ordersSlice'
 import MenuItem from "./MenuItem";
 
 const CreateOrder = ({onCloseModal})=>{
+  const dispatch = useDispatch()
+
   const [ modalView, setModalView ] = useState('CREATE')
   const [customerName, setCustomerName] = useState("")
   const [tableNumber, setTableNumber] = useState("")
-  const [ menuItems, setMenuItems ] = useState([{id: 1, name : 'Coffee', price: {currency : 'Rs.', amount : 20}, img : '/coffee.jpg'}, {id: 2, name : 'Black Tea', price: {currency : 'Rs.', amount : 15}, img : '/coffee.jpg'}, {id: 3, name : 'Green Tea', price: {currency : 'Rs.', amount : 30}, img : '/coffee.jpg'}, {id: 4, name : 'Adrak Tea', price: {currency : 'Rs.', amount : 40}, img : '/coffee.jpg'}, {id: 5, name : 'Cold Coffee', price: {currency : 'Rs.', amount : 50}, img : '/coffee.jpg'}])
+  const [ menuItems, setMenuItems ] = useState(useSelector(state => state.menuItems.menuItems))
   const [orderItems, setOrderItems] = useState([])
   const [orderTotal, setOrderTotal] = useState(0)
 
   const percentGST = 10
-
-  // setOrderItems([{name : 'lasdkjf', price : '12', img: '/coffee.jpg'}, {name : 'lasdkjf', price : '12', img: '/coffee.jpg'}, {name : 'lasdkjf', price : '12', img: '/coffee.jpg'}, {name : 'lasdkjf', price : '12', img: '/coffee.jpg'}, {name : 'lasdkjf', price : '12', img: '/coffee.jpg'}, {name : 'lasdkjf', price : '12', img: '/coffee.jpg'}])
 
   const clearInputFields = ()=>{
     setCustomerName("")
@@ -23,9 +24,20 @@ const CreateOrder = ({onCloseModal})=>{
     setOrderItems([])
   }
 
-  const createOrder = async (e)=>{
+  const submitOrderDetails = async (e)=>{
     e.preventDefault();
-    console.log(customerName, tableNumber, orderItems)
+    let order = {
+      customerName,
+      tableNumber,
+      orderItems,
+      orderTotal,
+      orderTotalWithTax : orderTotal + (Math.ceil(orderTotal * percentGST / 100)),
+      orderTime : Date.now(),
+      orderStatus : 'ORDERED',
+      orderType : 'N/A',
+      orderOfTheDay : 'N/A',
+    }
+    dispatch(createOrder(order))
     clearInputFields()
     onCloseModal()
   }
@@ -56,7 +68,8 @@ const CreateOrder = ({onCloseModal})=>{
   }
 
   if(modalView == 'SELECT') return(
-    <div className="min-w-[600px] max-h-[70vh] overflow-y-scroll">
+    menuItems.length > 0 ? 
+    <div className="min-w-[600px] min-h-[200px] max-h-[70vh] overflow-y-scroll">
       <div className="mt-2 font-semibold text-md">Select items</div>
       <div className="min-h-[300px] py-3 grid grid-cols-4 gap-3 place-items-center ">
         {menuItems.map(item => 
@@ -65,6 +78,14 @@ const CreateOrder = ({onCloseModal})=>{
       </div>
       <div className="flex justify-end">
         <button onClick={(e)=> changeModalView(e, 'CREATE')} className="bg-bg1 px-6 py-2 rounded-md">Done</button>
+      </div>
+    </div>
+    :
+    <div className="min-w-[600px] min-h-[300px] max-h-[70vh] flex flex-col items-center justify-center py-4">
+      <div>No items to display</div>
+      <div className="mt-5 flex gap-3 flex-col">
+        <button onClick={(e)=> changeModalView(e, 'CREATE')} className="bg-bg1 px-6 py-2 rounded-md text-tc2 flex items-center justify-center gap-2"><Icon path={mdiArrowLeft} size={0.7} />Back</button>
+        <button className="bg-bg1 px-6 py-2 rounded-md text-tc2 flex items-center justify-center gap-2"><Icon path={mdiPlus} size={0.7} />Add menu items</button>
       </div>
     </div>
   )
@@ -84,7 +105,7 @@ const CreateOrder = ({onCloseModal})=>{
           <label>Order items</label>
           <button onClick={(e)=>changeModalView(e, 'SELECT')} className="border py-2 mt-2 rounded-md hover:bg-bg1">Select order items</button>
         </div>
-        <button type="submit" onClick={createOrder} className="bg-bg1 py-2 mt-3 border border-transparent rounded-md hover:border-tc1 hover:bg-bg2">Create Order</button>
+        <button type="submit" onClick={submitOrderDetails} className="bg-bg1 py-2 mt-3 border border-transparent rounded-md hover:border-tc1 hover:bg-bg2">Create Order</button>
       </form>
       <div className="bg-bg1 p-4 rounded-md w-[300px] overflow-y-scroll">
         {!orderItems.length && 
@@ -99,7 +120,7 @@ const CreateOrder = ({onCloseModal})=>{
             {orderItems.map(item => {
               return(
                 <div key={item.id} className="flex mb-3 items-center justify-between">
-                  <div className="flex rounded-md overflow-hidden bg-bg2 w-[70%]">
+                  <div className="flex rounded-md overflow-hidden bg-bg2 w-[75%] relative">
                     <img src={item.img} alt="img" className="w-[80px]"/>
                     <div className="px-2 truncate flex items-center">{item.name}</div>
                   </div>
@@ -107,8 +128,8 @@ const CreateOrder = ({onCloseModal})=>{
                     x {item.quantity}
                   </div>
                   <button onClick={()=> reduceItemCount(item.id)} className="bg-bg2 rounded-full p-1">
-                    {/* <Icon path={mdiDelete} size={0.7} /> */}
-                    <Icon path={mdiMinus} size={0.7} />
+                    {item.quantity == 1 && <Icon path={mdiDelete} size={0.7} />}
+                    {item.quantity > 1 && <Icon path={mdiMinus} size={0.7} />}
                   </button>
                 </div>
               )
