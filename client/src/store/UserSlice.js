@@ -10,9 +10,9 @@ const initialState = {
       phone : '7373737373',
       email : 'abc@mail.co'
     },
-    additionalPercentGST : '8',
     preferences : {
       currency : 'Rs.',
+      additionalPercentGST : '8',
       includeGSTInPrice : false,
     }
   }
