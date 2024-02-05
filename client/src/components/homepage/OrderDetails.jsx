@@ -1,11 +1,11 @@
 import Icon from '@mdi/react';
 import { mdiChairSchool , mdiAccount, mdiClockOutline  } from '@mdi/js';
-import { userSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import MenuItem from './MenuItem';
 
 const OrderDetails = ({orderDetail})=>{
-  const user = userSelector(state => state.user)
+  const user = useSelector(state => state.user.user)
   return(
     <div className="min-w-[700px] min-h-[400px] max-w-[70vw] max-h-[70vh] flex text-tc2">
       <div className="w-[70%] overflow-y-scroll pr-4">
