@@ -31,12 +31,27 @@ const Timeline = ()=>{
         </div>
       }
       {orders.length > 0 &&
-        <div className="pt-6 grid grid-cols-2 gap-3">
-          {orders.map((order) => {
-          return(
-            <OrderCard order={order} key={order.id} />
-          )
-          })}
+        <div>
+          <div className="pt-6 font-semibold">New Orders</div>
+          <div className="pt-2 grid grid-cols-2 gap-3">
+            {orders.map((order) => {
+              if(order.orderStatus == 'ORDERED') return(
+                <OrderCard order={order} key={order.id} />
+              )
+            })}
+          </div>
+          <div className="pt-6 font-semibold">Fulfilled Orders</div>
+          {orders.filter(order => order.orderStatus == 'FULFILLED').length > 0 ?
+            <div className="pt-2 grid grid-cols-2 gap-3">
+              {orders.map((order) => {
+              if(order.orderStatus == 'FULFILLED') return(
+                <OrderCard order={order} key={order.id} />
+              )
+            })}
+            </div>
+            :
+            <div className="text-center mt-3"> No orders fulfilled today</div>
+          }
         </div>
       }
       <div className="flex justify-center mt-8">
