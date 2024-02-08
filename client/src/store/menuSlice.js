@@ -9,6 +9,7 @@ export const menuSlice = createSlice({
   initialState,
   reducers : {
     addMenuItem : (state, action) =>{
+      action.payload.id = nanoid()
       state.menuItems.push(action.payload)
     },
     removeMenuItem : (state, action)=>{

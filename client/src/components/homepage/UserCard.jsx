@@ -1,5 +1,7 @@
 import Icon from '@mdi/react';
-import { mdiMapMarker } from '@mdi/js';
+import { mdiMapMarker, mdiPhone, mdiEmailOutline  } from '@mdi/js';
+
+import {Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const UserCard = ()=>{
@@ -12,7 +14,11 @@ const UserCard = ()=>{
       </div>
       <div className='text-center'>
         <div className="font-semibold">{user.name}</div>
-        <div className='flex'><Icon path={mdiMapMarker} size={0.8} /> {user.address}</div>
+        <div className='mt-[2px]'>{user.description}</div>
+        <div className="flex flex-col items-center mt-3"><Icon path={mdiMapMarker} size={0.8} /> {user.address}</div>
+        <div className="flex flex-col items-center mt-3"><Icon path={ mdiPhone } size={0.8} /> {user.contactInfo.phone}</div>
+        <div className="flex flex-col items-center mt-3"><Icon path={ mdiEmailOutline } size={0.8} /> {user.contactInfo.email}</div>
+        <Link to="/profile"><button className='bg-bg1 w-full py-2 mt-3 rounded-md'>View profile</button></Link>
         <div></div>
       </div>
     </div>
