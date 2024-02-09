@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import { Switch, Select } from '@mui/material';
 import Icon from '@mdi/react';
-import { mdiAccount, mdiCog, mdiArrowLeft } from '@mdi/js';
+import { mdiAccount, mdiCog, mdiArrowLeft, mdiAccountCog } from '@mdi/js';
 
 const UserProfile = ()=>{
   const navigate = useNavigate();
@@ -86,6 +86,15 @@ const UserProfile = ()=>{
             </div>
           </div>
         </div>
+      </div>
+      <div className="bg-bg2 w-[1000px] px-4 py-6 rounded-md">
+        <div className="text-center font-semibold text-xl flex justify-center items-center gap-2"><Icon path={mdiAccountCog} size={1.1} /> Account Settings</div>
+        <div className='grid grid-cols-2 gap-3 py-6 px-6'>
+          <div className='bg-bg1 flex flex-col items-start px-3 py-4 gap-4 rounded-md text-md'>
+            <div>Log out <br /><span className='text-sm'>Log out of current session from the browser.</span></div>
+            <button className='bg-bg2 py-2 px-5 rounded-md'>Log out</button>
+          </div>
+        </div>   
       </div>
     </div>
   )
