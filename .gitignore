@@ -12,7 +12,9 @@ dist
 dist-ssr
 *.local
 
-# environmental variable
+# environmental variables
+.env.local
+.env.*.local
 server/.env
 
 # Editor directories and files
