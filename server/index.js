@@ -7,13 +7,11 @@ const app = express();
 
 const { auth } = require("./middlewares/auth")
 const UserRouter = require('./routes/user');
-
-const PORT = 8000;
 dotenv.config({path : "./.env"})
 
 // Connection
 mongoose
-  .connect(`mongodb+srv://gautamjuyal94:${process.env.MONGODB_PASSWORD}@cafe-table-data.sbujegc.mongodb.net/?retryWrites=true&w=majority`)
+  .connect(process.env.DB.replace('<password>', process.env.DB_PASSWORD))
   .then(()=> console.log("Mongo DB connnected"))
   .catch(err => console.log(err));
 
@@ -24,6 +22,8 @@ app.use(cookieParser());
 // Routes
 app.use("/api/v1/users", UserRouter)
 
+const PORT = process.env.PORT || 8001
+
 app.listen(PORT, ()=>{
-  console.log('server started...')
+  console.log(`Server started at PORT:${PORT}`)
 })

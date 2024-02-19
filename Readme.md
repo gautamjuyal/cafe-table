@@ -56,7 +56,10 @@ Cafe table is one application you need to manage your cafes/restaurants. Aimed a
   - Redux Toolkit
   - React Router
   - Tailwind
-  - Icons by mdi 
+  - Icons by mdi
+  - ExpressJS
+  - MongoDB Atlas
+  - NodeJS 
 
 <!-- ## Stars history -->
 
