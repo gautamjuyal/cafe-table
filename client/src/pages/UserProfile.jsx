@@ -1,14 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import { Switch, Select } from '@mui/material';
 import Icon from '@mdi/react';
-import { mdiAccount, mdiCog, mdiArrowLeft, mdiAccountCog } from '@mdi/js';
+import { mdiAccount, mdiCog, mdiArrowLeft, mdiAccountCog, mdiInformation  } from '@mdi/js';
+import { getUserDetails } from "../services/userService";
 
 const UserProfile = ()=>{
   const navigate = useNavigate();
   const [editAccount, setEditAcccount] = useState(false)
+  const userId = useSelector(state => state.auth)
   const [userDetails, setUserDetails] = useState(useSelector(state => state.user.user))
+  const fetchUserDetails = async()=>{
+    const details = await getUserDetails()
+    console.log(details)
+  }
+
+  useEffect(()=>{
+    fetchUserDetails();
+  })
 
   return(
     <div className="text-tc2 flex flex-col items-center w-full min-h-screen py-5 gap-6">
@@ -93,6 +103,31 @@ const UserProfile = ()=>{
           <div className='bg-bg1 flex flex-col items-start px-3 py-4 gap-4 rounded-md text-md'>
             <div>Log out <br /><span className='text-sm'>Log out of current session from the browser.</span></div>
             <button className='bg-bg2 py-2 px-5 rounded-md'>Log out</button>
+          </div>
+        </div>   
+      </div>
+      <div className="bg-bg2 w-[1000px] px-4 py-6 rounded-md">
+        <div className="text-center font-semibold text-xl flex justify-center items-center gap-2"><Icon path={mdiInformation } size={1.1} /> App Information</div>
+        <div className='grid grid-cols-2 gap-3 py-6 px-6'>
+          <div className='bg-bg1 flex flex-col items-start px-3 py-4 gap-4 rounded-md text-md'>
+            <div className="mb-3">App version</div>
+            <div className='bg-bg2 flex w-full px-3 py-4 justify-between items-center rounded-md text-md'>
+              <a href="https://github.com/gautamjuyal/cafe-table/issues/new" target="_blank" rel="noreferrer"><button className='py-2 px-4 rounded-md'>V1.0.0</button></a>
+            </div>
+          </div>
+          <div className='bg-bg1 flex flex-col items-start px-3 py-4 gap-4 rounded-md text-md'>
+            <div className="mb-3">Developed by</div>
+            <a href="https://github.com/gautamjuyal" target="_blank" className="flex items-center gap-3 bg-bg2 w-full px-3 py-[10px] rounded-md" rel="noreferrer">
+              <img src="https://avatars.githubusercontent.com/u/75676784?v=4" className="w-[50px] rounded-full"/>
+              <div>Gautam Juyal</div>
+            </a>
+          </div>
+          <div className='bg-bg1 flex flex-col items-start px-3 py-4 gap-4 rounded-md text-md'>
+            <div className="mb-3">Issues, improvement, suggestions</div>
+            <div className='bg-bg2 flex w-full px-3 py-4 justify-between items-center rounded-md text-md'>
+              <div>Create an issue</div>
+              <a href="https://github.com/gautamjuyal/cafe-table/issues/new" target="_blank" rel="noreferrer"><button className='bg-bg1 py-2 px-5 rounded-md'>Create issue</button></a>
+            </div>
           </div>
         </div>   
       </div>

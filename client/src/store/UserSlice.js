@@ -4,17 +4,17 @@ const initialState = {
   user : {
     id : '',
     img : '',
-    userName : 'timeless-cafe',
-    name : 'Timeless Cafe',
-    description: 'Some attractive description of the restaurant',
-    address : 'Sector 7, New Delhi',
+    userName : '',
+    name : '',
+    description: '',
+    address : '',
     contactInfo : {
-      phone : '7373737373',
-      email : 'abc@mail.co'
+      phone : '',
+      email : ''
     },
     preferences : {
       currency : 'Rs.',
-      additionalPercentGST : '8',
+      additionalPercentGST : '',
       includeGSTInPrice : false,
     }
   }
@@ -24,9 +24,8 @@ const UserSlice = createSlice({
   name : 'user',
   initialState,
   reducers : {
-
   }
 })
 
-
+export const { setUser } = UserSlice.actions;
 export default UserSlice.reducer;

@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const app = express();
 
-const { auth } = require("./middlewares/auth")
-const UserRouter = require('./routes/user');
+const { errorHandler, notFound } = require("./middlewares/errorMiddleware")
+const { auth } = require("./middlewares/authMiddleware")
+const UserRouter = require('./routes/userRoute');
 dotenv.config({path : "./.env"})
 
 // Connection
@@ -18,6 +20,10 @@ mongoose
 // Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
+
+// app.use(errorHandler);
+// app.use(notFound);
 
 // Routes
 app.use("/api/v1/users", UserRouter)

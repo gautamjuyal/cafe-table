@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 
 const Header = ()=>{
   return(
     <div>
-      <img src="logos/cafe-table-transparent.png" alt="cafe-table" className="w-[110px] bg-blend-multiply"/>
+      <Link to="/"><img src="logos/cafe-table-transparent.png" alt="cafe-table" className="w-[110px] bg-blend-multiply"/></Link>
     </div>
   )
 }

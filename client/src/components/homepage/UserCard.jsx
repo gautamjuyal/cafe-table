@@ -18,7 +18,7 @@ const UserCard = ()=>{
         <div className="flex flex-col items-center mt-3"><Icon path={mdiMapMarker} size={0.8} /> {user.address}</div>
         <div className="flex flex-col items-center mt-3"><Icon path={ mdiPhone } size={0.8} /> {user.contactInfo.phone}</div>
         <div className="flex flex-col items-center mt-3"><Icon path={ mdiEmailOutline } size={0.8} /> {user.contactInfo.email}</div>
-        <Link to="/profile"><button className='bg-bg1 w-full py-2 mt-3 rounded-md'>View profile</button></Link>
+        <Link to="/profile"><button className='bg-bg1 w-full py-2 mt-3 rounded-md px-5'>View profile</button></Link>
         <div></div>
       </div>
     </div>
