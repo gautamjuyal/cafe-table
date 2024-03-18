@@ -6,10 +6,12 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
 
-const { errorHandler, notFound } = require("./middlewares/errorMiddleware")
+// const { errorHandler, notFound } = require("./middlewares/errorMiddleware")
 const { auth } = require("./middlewares/authMiddleware")
 const UserRouter = require('./routes/userRoute');
-dotenv.config({path : "./.env"})
+const MenuRouter = require("./routes/menuRoute");
+const OrderRouter = require("./routes/orderRoute");
+dotenv.config({path : "./.env"});
 
 // Connection
 mongoose
@@ -27,6 +29,8 @@ app.use(cors());
 
 // Routes
 app.use("/api/v1/users", UserRouter)
+app.use("/api/v1/menu", MenuRouter)
+app.use("/api/v1/orders", OrderRouter)
 
 const PORT = process.env.PORT || 8001
 
